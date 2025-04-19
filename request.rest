@@ -1,0 +1,72 @@
+###
+GET http://localhost:5000/api/packages
+
+###
+POST http://localhost:5000/api/packages
+Content-Type: application/json
+
+{
+        "name": "test package 2",
+        "price": 500,
+        "desc": "some discription",
+        "packageNumber":[{
+        "number": 20,
+        "unavailableDates": ["2025-04-26", "2024-05-02"]
+        }]
+}
+
+# get one package
+###
+GET  http://localhost:5000/api/packages/6802a7e2e27801197b404132
+
+
+# update package
+###
+PUT http://localhost:5000/api/packages/6802a7e2e27801197b404132
+Content-Type: application/json
+
+{
+        "name": "test package",
+        "price": 600
+}
+
+# delete package
+###
+DELETE http://localhost:5000/api/packages/680219525bf2a6cd1b5e4878
+
+
+# get bookings 
+###
+GET http://localhost:5000/api/bookings
+
+# get one booking
+###
+GET  http://localhost:5000/api/bookings/6802a86ae27801197b404153
+
+
+# create booking
+###
+POST http://localhost:5000/api/bookings
+Content-Type: application/json
+
+{
+    "packageId": "6802a86ae27801197b404153",
+    "name": "perera",
+    "email": "perera@gmail.com",
+    "bookingDate":"2025-04-26"
+}
+
+# update booking
+###
+PUT http://localhost:5000/api/bookings/6802a86ae27801197b404153
+Content-Type: application/json
+
+{
+    "name": "updated name 01",
+    "email": "updated@gmail.com"
+}
+
+#delete booking
+###
+DELETE http://localhost:5000/api/bookings/6802a86ae27801197b404153
+
