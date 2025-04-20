@@ -1,5 +1,8 @@
 const { Router } = require("express");
+
 const { createPackage, getPackages,getPackage, updatePackage, deletePackage } = require ("../controllers/packageController");
+
+const { auth } = require("../middleware/authMiddleware");
 
 const router = Router();
 
@@ -7,15 +10,15 @@ const router = Router();
 router.get("/", getPackages);
 
 //create package
-router.post("/", createPackage);
+router.post("/", auth, createPackage);
 
 //  get one package
-router.get("/:id", getPackage);
+router.get("/:id",  getPackage);
 
 // update package
-router.put("/:id", updatePackage);
+router.put("/:id", auth,  updatePackage);
 
 // delete package
-router.delete("/:id", deletePackage);
+router.delete("/:id", auth, deletePackage);
 
 module.exports = router;

@@ -70,3 +70,28 @@ Content-Type: application/json
 ###
 DELETE http://localhost:5000/api/bookings/6802a86ae27801197b404153
 
+
+# get users
+###
+GET http://localhost:5000/api/users
+
+# create user
+###
+POST http://localhost:5000/api/users
+Content-Type:  application/json
+
+{
+    "name": "silva",
+    "email": "silva@gmail.com",
+    "password": "password"
+}
+
+#login user
+###
+POST http://localhost:5000/api/users/login
+Content-Type: application/json
+
+{
+    "email": "silva@gmail.com",
+    "password": "password"
+}
