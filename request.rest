@@ -1,7 +1,7 @@
 ###
 GET http://localhost:5000/api/packages
 
-###
+###create package
 POST http://localhost:5000/api/packages
 Content-Type: application/json
 
@@ -95,3 +95,11 @@ Content-Type: application/json
     "email": "silva@gmail.com",
     "password": "password"
 }
+
+# logout user
+###
+GET http://localhost:5000/api/users/logout
+
+#check user 
+###
+GET http://localhost:5000/auth
