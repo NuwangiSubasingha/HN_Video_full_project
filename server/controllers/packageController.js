@@ -24,7 +24,8 @@ const createPackage = async (req , res, next) => {
             res.status(400);
             throw new Error("there was a problem creating")
         }
-        return res.status(201).json(package);
+        const packages = await Package.find();
+        return res.status(201).json(packages);
     }catch (error){
         next(error)
     }

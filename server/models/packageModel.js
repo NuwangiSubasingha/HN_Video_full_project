@@ -13,6 +13,9 @@ const packgeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    img: {
+        type: [String],
+      },
     packageNumber: {
         type: [{
             number: Number,
