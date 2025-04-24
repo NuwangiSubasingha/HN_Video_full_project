@@ -6,6 +6,7 @@ import Register from "./Pages/Register/Register";
 import Header from "./component/Header/Header";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreatePackage from "./Pages/CreatePackage";
+import Package from "./Pages/Package/Package";
 import Packages from "./Pages/Packages/Packages";
 const App = () => {
 return (
@@ -19,6 +20,7 @@ return (
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/packages/create" element={<CreatePackage />} />
       <Route path="/packages" element={<Packages />} />
+      <Route path="/packages/all/:id" element={<Package/>} />
     </Routes>
   </Router>
  </div>

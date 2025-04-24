@@ -68,13 +68,13 @@ export const packageSlice = createSlice({
     extraReducers: (builder) => {
       // add cases here
       builder
-      .addCase(createPackage.pending, (state) => {
+      .addCase(createPackage.pending, (state) => {  
         state.isLoading = true;
       })
       .addCase(createPackage.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.rooms = action.payload;
+        state.packages = action.payload;
       })
       .addCase(createPackage.rejected, (state, action) => {
         state.isLoading = false;
@@ -87,7 +87,7 @@ export const packageSlice = createSlice({
       .addCase(getPackages.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.rooms = action.payload;
+        state.packages = action.payload;
       })
       .addCase(getPackages.rejected, (state, action) => {
         state.isLoading = false;
