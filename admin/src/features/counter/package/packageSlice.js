@@ -53,8 +53,50 @@ export const createPackage = createAsyncThunk(
     }
   });
   
+  //update package
+  export const updatePackage = createAsyncThunk("/package/update", async (packageData, thunkApi) => {
+      try {
+        const { packageId, ...rest } = packageData;
+        const res = await fetch(`/api/packages//${packageId}`,{
+          headers: {
+            "Content-type": "application/json",
+          },
+          method: "PUT",
+          body: JSON.stringify(rest),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          return thunkApi.rejectWithValue(data);
+        }
+  
+        return data;
 
-export const packageSlice = createSlice({
+        } catch (error) {
+          console.log(error.message);
+          return thunkApi.rejectWithValue(error.message);
+        }
+      }
+    );
+
+   
+export const deletePackage = createAsyncThunk(
+  "package/delete",
+  async (packageId, thunkApi) => {
+    try {
+      const res = await fetch(`/api/packages/${packageId}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        return thunkApi.rejectWithValue(data);
+      }
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+    export const packageSlice = createSlice({
     name: "package",
     initialState,
     reducers: {
@@ -94,6 +136,34 @@ export const packageSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
       })
+      .addCase(updatePackage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePackage.fulfilled, (state, action) => {
+        state.isSuccess = true;
+        state.isLoading = false;
+        state.packages = action.payload;
+      })
+      .addCase(updatePackage.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deletePackage.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deletePackage.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.packages = state.packages.filter(
+          (pkg) => pkg._id != action.payload.id
+        );
+      })
+      .addCase(deletePackage.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      });
     }
 }
 );

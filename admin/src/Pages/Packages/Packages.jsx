@@ -1,19 +1,20 @@
-import React from 'react'
-import { getPackages } from '../../features/counter/package/packageSlice';
+import { getPackages,reset } from '../../features/counter/package/packageSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PackageList from '../../component/PackageList/PackageList';
 
 const Packages = () => {
-
   const dispatch = useDispatch ();
-  const {packages, isLoading} = useSelector((state) => state.package);
-
-  
+  const {packages, isLoading, isSuccess} = useSelector((state) => state.package);
   useEffect(() => {
-    dispatch(getPackages())
-  }, [dispatch])
+    dispatch(getPackages());
+  }, []);
 
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(reset());
+    }
+  }, [isSuccess]);
 
   if (isLoading) {
     return (

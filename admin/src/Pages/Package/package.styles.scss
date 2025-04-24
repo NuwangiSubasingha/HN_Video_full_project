@@ -19,4 +19,25 @@
         height: 60vh;
         margin-bottom: 1rem;
     }
+    .cta-wrapper {
+        margin-top: 1rem;
+        padding-bottom: 2rem;
+        text-align: center;
+    a {
+        display: inline-block;
+        padding: 1rem 2rem;
+        background-color: black;
+        color: white;
+        margin-right: 1rem;
+      }
+  
+      button {
+        background-color: red;
+        outline: none;
+        border: none;
+        padding: 1rem 2rem;
+        color: white;
+        font-weight: 90;
+      }
+}
 }

@@ -33,7 +33,7 @@ const CreatePackage = () => {
   useEffect(() => {
     if (isSuccess) {
       dispatch(reset());
-      navigate("/dashboard");
+      navigate("/packages");
     }
   }, [dispatch, isSuccess, navigate]);
 
@@ -86,7 +86,7 @@ const CreatePackage = () => {
 
 return (
     <div className="container">
-      <h1 className="heading center">Create Room</h1>
+      <h1 className="heading center">Create Package</h1>
 
       <div className="form-wrapper">
         <form onSubmit={handleSubmit}>

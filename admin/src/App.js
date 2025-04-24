@@ -8,6 +8,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import CreatePackage from "./Pages/CreatePackage";
 import Package from "./Pages/Package/Package";
 import Packages from "./Pages/Packages/Packages";
+import EditPackage from "./Pages/EditPackage/EditPackage";
 const App = () => {
 return (
 <div>
@@ -21,6 +22,7 @@ return (
       <Route path="/packages/create" element={<CreatePackage />} />
       <Route path="/packages" element={<Packages />} />
       <Route path="/packages/all/:id" element={<Package/>} />
+      <Route path="/edit/packags/:id" element={<EditPackage />} />
     </Routes>
   </Router>
  </div>
