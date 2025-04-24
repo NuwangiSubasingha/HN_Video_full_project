@@ -24,18 +24,21 @@ const EditPackage = () => {
             const data = await res.json();
     
             const { packageNumbers, ...rest } = data;
-            const packageMap = packageNumbers.map((item) => item.number);
+            const packageMap = Array.isArray(packageNumbers)
+              ? packageNumbers.map((item) => item.number)
+              : [];
             const packageString = packageMap.join(",");
             setFormData({
               ...rest,
               packageNumbers: packageString,
             });
+            
           } catch (error) {
             console.log(error);
           }
         };
         getPackage();
-      }, []);
+      }, [id]);
 
       useEffect(() => {
         if (isSuccess) {
@@ -43,7 +46,7 @@ const EditPackage = () => {
           dispatch(reset());
           navigate("/packages");
         }
-      }, [isSuccess]);
+      }, [dispatch, isSuccess, navigate]);
 
       const handleChange = (e) => {
         setFormData((prev) => ({

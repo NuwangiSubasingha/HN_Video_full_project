@@ -7,7 +7,7 @@ import { reset, deletePackage } from '../../features/counter/package/packageSlic
 
 const Package = () => {
     const { user } = useSelector((state) => state.auth);
-    const { isSuccess } = useSelector((state) => state.pkg);
+    const isSuccess = useSelector((state) => state.Package?.isSuccess);
     const {id} = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Package = () => {
           // disptach reset
           dispatch(reset());
         }
-      }, [isSuccess]);
+      }, [dispatch, isSuccess, navigate]);
 
     useEffect(() => {
       const getPackage = async () => {
@@ -40,7 +40,7 @@ const Package = () => {
         }
         getPackage()
         
-    }, []);
+    }, [dispatch, id]);
 
     const handleDelete = () =>{
         dispatch(deletePackage(id));

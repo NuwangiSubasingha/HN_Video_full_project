@@ -22,7 +22,7 @@ return (
       <Route path="/packages/create" element={<CreatePackage />} />
       <Route path="/packages" element={<Packages />} />
       <Route path="/packages/all/:id" element={<Package/>} />
-      <Route path="/edit/packags/:id" element={<EditPackage />} />
+      <Route path="/edit/packages/:id" element={<EditPackage />} />
     </Routes>
   </Router>
  </div>

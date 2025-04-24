@@ -156,7 +156,7 @@ export const deletePackage = createAsyncThunk(
         state.isLoading = false;
         state.isSuccess = true;
         state.packages = state.packages.filter(
-          (pkg) => pkg._id != action.payload.id
+          (pkg) => pkg._id !== action.payload.id
         );
       })
       .addCase(deletePackage.rejected, (state, action) => {
