@@ -46,11 +46,101 @@
 // export default Header;
 
 
-import "./header.styles.scss";
+// import { NavLink } from "react-router-dom";
+// import { useSelector, useDispatch } from "react-redux";
+// import { logoutUser, reset } from "../../features/counter/auth/authSlice";
+
+// const Header = () => {
+//   const { user } = useSelector((state) => state.auth);
+//   const dispatch = useDispatch();
+
+//   const handleLogout = async () => {
+//     dispatch(logoutUser());
+//     dispatch(reset());
+//   };
+
+//   return (
+//     <header className="bg-[#17252A] shadow-lg py-4">
+//       <div className="container mx-auto flex justify-between items-center px-6">
+//         <NavLink to="/" className="text-[#3AAFA9] text-3xl font-semibold">
+//           <h1>HN Video</h1>
+//         </NavLink>
+
+//         <nav className="flex space-x-6">
+//           <NavLink
+//             to="/"
+//             className={({ isActive }) =>
+//               isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+//             }
+//           >
+//             Home
+//           </NavLink>
+//           <NavLink
+//             to="/packages"
+//             end
+//             className={({ isActive }) =>
+//               isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+//             }
+//           >
+//             Packages
+//           </NavLink>
+
+//           {user ? (
+//             <>
+//               <NavLink
+//                 to="/packages/create"
+//                 className={({ isActive }) =>
+//                   isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+//                 }
+//               >
+//                 Create
+//               </NavLink>
+//               <button
+//                 onClick={handleLogout}
+//                 className="text-[#DEF2F1]  border border-[#3AAFA9] py-1 px-4 rounded-md hover:bg-[#ba3e3e] hover:text-[#FEFFFF]"
+//               >
+//                 Logout
+//               </button>
+//             </>
+//           ) : (
+//             <>
+//               <NavLink
+//                 to="/rooms"
+//                 className={({ isActive }) =>
+//                   isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+//                 }
+//               >
+//                 Rooms
+//               </NavLink>
+//               <NavLink
+//                 to="/login"
+//                 className={({ isActive }) =>
+//                   isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+//                 }
+//               >
+//                 Login
+//               </NavLink>
+//               <NavLink
+//                 to="/register"
+//                 className={({ isActive }) =>
+//                   isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+//                 }
+//               >
+//                 Register
+//               </NavLink>
+//             </>
+//           )}
+//         </nav>
+//       </div>
+//     </header>
+//   );
+// };
+
+// export default Header;
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, reset } from "../../features/counter/auth/authSlice";
-
+// import logo from "../../assets/logo.png";
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -61,36 +151,68 @@ const Header = () => {
   };
 
   return (
-    <header className="main-header">
-      <div className="container">
-        <NavLink to="/" className="logo">
+    <header className="bg-[#17252A] shadow-lg py-4">
+      <div className="container mx-auto flex justify-between items-center px-6">
+        <NavLink
+          to="/"
+          className="flex items-center space-x-2 text-[#3AAFA9] text-3xl font-semibold "
+        >
+          {/* <img src={logo} alt="Site Logo" className="h-[50px] w-[50px] object-contain" /> */}
           <h1>HN Video</h1>
         </NavLink>
 
-        <nav>
-          <NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : "")}>
+        <nav className="flex space-x-6">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+            }
+          >
             Home
           </NavLink>
-          <NavLink to="/packages" end className={({ isActive }) => (isActive ? "active-link" : "")}>
-    Packages
-  </NavLink>
+          <NavLink
+            to="/packages"
+            end
+            className={({ isActive }) =>
+              isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+            }
+          >
+            Packages
+          </NavLink>
 
-  {user ? (
-    <>
-      <NavLink to="/packages/create" className={({ isActive }) => (isActive ? "active-link" : "")}>
-        Create
-      </NavLink>
-      <button onClick={handleLogout}>Logout</button>
-    </>
+          {user ? (
+            <>
+              <NavLink
+                to="/packages/create"
+                className={({ isActive }) =>
+                  isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+                }
+              >
+                Create
+              </NavLink>
+              <button
+                onClick={handleLogout}
+                className="text-[#DEF2F1] border border-[#3AAFA9] py-1 px-4 rounded-md hover:bg-[#ba3e3e] hover:text-[#FEFFFF]"
+              >
+                Logout
+              </button>
+            </>
           ) : (
             <>
-              <NavLink to="/rooms" className={({ isActive }) => (isActive ? "active-link" : "")}>
-                Rooms
-              </NavLink>
-              <NavLink to="/login" className={({ isActive }) => (isActive ? "active-link" : "")}>
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+                }
+              >
                 Login
               </NavLink>
-              <NavLink to="/register" className={({ isActive }) => (isActive ? "active-link" : "")}>
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+                }
+              >
                 Register
               </NavLink>
             </>
