@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset, deletePackage } from '../../features/counter/package/packageSlice';
+import Carousel  from "../../component/Carousel/Carousel";
 
 const Package = () => {
   const { user } = useSelector((state) => state.auth);
@@ -21,7 +22,7 @@ const Package = () => {
 
   useEffect(() => {
     const getPackage = async () => {
-      dispatch(reset());
+      
       try {
         const res = await fetch(`/api/packages/${id}`);
         if (res.ok) {
@@ -56,11 +57,14 @@ const Package = () => {
         {pkg ? (
           <div className="bg-[#FEFFFF] shadow-lg rounded-lg p-6">
             <div className="img-wrapper mb-6">
-              <img
+              
+              <Carousel data={pkg.img}/>
+              
+           {/*<img
                 src={pkg.img[0]}
                 alt={pkg.name}
                 className="w-full h-[550px] object-cover rounded-lg shadow-md"
-              />
+              />*/}
             </div>
             <div className="text-wrapper">
               <h1 className="text-3xl font-semibold text-[#17252A] text-center mb-4">{pkg.name}</h1>

@@ -1,6 +1,7 @@
 import React from 'react'
 import "./packageList.styles.scss"
 import { Link } from 'react-router-dom';
+import Carousel from '../Carousel/Carousel';
 
 const PackageList = ({data}) => {
   return (
@@ -9,7 +10,8 @@ const PackageList = ({data}) => {
       return (
         <Link to={`/packages/all/${item._id}`} key={item._id} className='package-unit'>
           <div className="img-wrapper">
-          <img src={item.img[0]} alt='' />
+          {/*<img src={item.img[0]} alt=""/>*/}
+          <Carousel data={item.img} />
           </div>
           <p className='name'> {item.name}</p>
         </Link>
