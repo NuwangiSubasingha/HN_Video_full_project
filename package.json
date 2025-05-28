@@ -5,8 +5,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server/server.js",
-    "admin" : "npm run start --prefix admin",
-    "dev": "concurrently \"npm run server\" \"npm run admin\""
+    "client": "npm run start --prefix client",
+    "admin": "npm run start --prefix admin",
+    "dev-admin": "concurrently \"npm run server\" \"npm run admin\"",
+    "dev-client": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -18,7 +20,11 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.2"
+    "mongoose": "^8.13.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.21.1",
+    "web-vitals": "^5.0.1"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

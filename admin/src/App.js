@@ -10,6 +10,7 @@ import CreatePackage from "./Pages/CreatePackage";
 import Package from "./Pages/Package/Package";
 import Packages from "./Pages/Packages/Packages";
 import EditPackage from "./Pages/EditPackage/EditPackage";
+import Booking from "./Pages/Booking/Booking";
 
 const App = () => {
   return (
@@ -21,10 +22,11 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/packages/create" element={<CreatePackage />} />
           <Route path="/packages" element={<Packages />} />
-          <Route path="/packages/all/:id" element={<Package />} />
+          <Route path="/packages/create" element={<CreatePackage />} />
           <Route path="/edit/packages/:id" element={<EditPackage />} />
+          <Route path="/packages/all/:id" element={<Package />} />
+          <Route path="bookings/:id" element={<Booking />} />
         </Routes>
       </Router>
     </div>

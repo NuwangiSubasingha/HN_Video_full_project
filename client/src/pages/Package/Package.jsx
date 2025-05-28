@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset, deletePackage } from '../../features/counter/package/packageSlice';
+import { reset, deletePackage } from '../../features/package/packageSlice';
 import Carousel  from "../../component/Carousel/Carousel";
 
 const Package = () => {
-  const { user } = useSelector((state) => state.auth);
+  
   const isSuccess = useSelector((state) => state.Package?.isSuccess);
+  
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [pkg, setPackage] = useState(null);
 
+  useEffect(() => {
+    if (isSuccess) {
+      // Navigate to packages
+      navigate('/packages');
+      dispatch(reset());
+    }
+  }, [dispatch, isSuccess, navigate]);
 
   useEffect(() => {
     const getPackage = async () => {
@@ -63,39 +71,20 @@ const Package = () => {
               <h1 className="text-3xl font-semibold text-[#17252A] text-center mb-4">{pkg.name}</h1>
               <p className="text-[#2B7A78] text-center mb-4">{pkg.desc}</p>
               <h2 className="text-xl font-bold text-[#3AAFA9] text-center mb-6">Rs: {pkg.price.toFixed(2)}</h2>
-             <div className="cta-wrapper text-center space-x-4">
-               {user?.isAdmin ? (
-                 <>
-                   <Link
-                     to={`/edit/packages/${pkg._id}`}
-                     className="inline-block bg-[#3AAFA9] border-2 border-[#2B7A78] text-[#FEFFFF] py-2 px-6 rounded-lg shadow-md hover:bg-[#2B7A78] hover:border-[#3AAFA9] text-base font-medium"
-                   >
-                     Edit Package
-                   </Link>
-                   <button
-                     onClick={handleDelete}
-                     className="inline-block bg-[#FEFFFF] border-2 border-[#3AAFA9] text-[#3AAFA9] py-2 px-6 rounded-lg shadow-md hover:bg-[#c14841] hover:text-[#FEFFFF] text-base font-medium"
-                   >
-                     Delete Package
-                   </button>
-                 </>
-               ) : (
-                 <button
-                   onClick={() => alert('Booking feature is coming soon!')}
-                   className="bg-[#2B7A78] border-2 border-[#3AAFA9] text-[#FEFFFF] py-2 px-6 rounded-lg shadow-md hover:bg-[#3AAFA9] text-base font-medium"
-                 >
-                   Book Package
-                 </button>
-               )}
-             </div>
-            </div>
+              <div className='cta-wrapper text-center space-x-4'>
+              <Link to={`/bookings/${pkg._id}`} className="bg-[#2B7A78] border-2 border-[#3AAFA9] text-[#FEFFFF] py-2 px-6 rounded-lg shadow-md hover:bg-[#3AAFA9] text-base font-medium" >Book Now</Link>
+              </div>
+              </div>
           </div>
         ) : (
           <p className="text-center text-[#17252A]">Loading...</p>
         )}
+
+        
       </div>
     </div>
   );
 };
 
 export default Package;
+

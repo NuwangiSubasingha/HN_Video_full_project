@@ -2,7 +2,7 @@ const Booking = require("../models/bookingModel");
 
 const getBookings = async (req, res, next) => {
     try {
-       const bookings = await Booking.find();
+       const bookings = await Booking.find().populate("pkgID");
         if(!bookings){
             res.status(400);
             throw new Error("cannot find bookings");
@@ -68,7 +68,7 @@ const deleteBooking = async(req, res, next) => {
 const getBooking = async(req, res, next) => {
 
     try {
-        const booking = await Booking.findById(req.params.id);
+        const booking = await Booking.findById(req.params.id).populate("pkgID");
         if(!booking){
             res.status(400);
             throw new Error("booking not found");
