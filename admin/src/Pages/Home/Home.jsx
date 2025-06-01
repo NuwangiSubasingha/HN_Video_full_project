@@ -81,17 +81,44 @@ const Home = () => {
         </motion.p>
 
         {/* Explore Now Button with Animation */}
-        <Link to="/packages">
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="group relative mt-8 px-8 py-3 bg-[#2B7A78] text-[#FEFFFF] font-semibold rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:bg-[#3AAFA9]"
-          >
-            <span className="relative z-10">Packages</span>
-            <span className="absolute left-0 bottom-0 w-full h-1 bg-[#FEFFFF] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-          </motion.button>
-        </Link>
+        <div className="flex justify-center items-center gap-6 mt-8 flex-wrap">
+  <Link to="/packages">
+    <motion.button
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1 }}
+      className="group relative w-48 px-8 py-3 bg-[#2B7A78] text-[#FEFFFF] font-semibold rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:bg-[#3AAFA9]"
+    >
+      <span className="relative z-10">Packages</span>
+      <span className="absolute left-0 bottom-0 w-full h-1 bg-[#FEFFFF] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+    </motion.button>
+  </Link>
+
+  <Link to="/dashboard">
+    <motion.button
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1 }}
+      className="group relative w-48 px-8 py-3 bg-[#2B7A78] text-[#FEFFFF] font-semibold rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:bg-[#3AAFA9]"
+    >
+      <span className="relative z-10">Dashboard</span>
+      <span className="absolute left-0 bottom-0 w-full h-1 bg-[#FEFFFF] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+    </motion.button>
+  </Link>
+
+  <Link to="/packages/create">
+    <motion.button
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1 }}
+      className="group relative w-48 px-8 py-3 bg-[#2B7A78] text-[#FEFFFF] font-semibold rounded-full overflow-hidden shadow-xl transition-all duration-300 hover:bg-[#3AAFA9]"
+    >
+      <span className="relative z-10">Create Package</span>
+      <span className="absolute left-0 bottom-0 w-full h-1 bg-[#FEFFFF] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+    </motion.button>
+  </Link>
+</div>
+
       </div>
     </div>
   );

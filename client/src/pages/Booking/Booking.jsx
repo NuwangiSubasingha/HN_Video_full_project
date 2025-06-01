@@ -4,75 +4,82 @@ import { createBooking, reset } from "../../features/booking/bookingSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const Booking = () => {
-    const { id: pkgID } = useParams();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { isSuccess } = useSelector((state) => state.booking);
 
+  const [packages, setPackages] = useState([]);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    functionDate: "",
+    venue: "",
+    contactNumber: "",
+    selectedPackage: ""
+  });
 
-    const [pkg, setPackage] = useState(null);
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        checkInDate: "",
-        checkOutDate: "",
-      });
+  const {
+    name,
+    email,
+    functionDate,
+    venue,
+    contactNumber,
+    selectedPackage
+  } = formData;
 
-      const { name, email, checkInDate, checkOutDate } = formData;
-
-    useEffect(() => {
-        const getPackage = async () => {
-            try {
-                const res = await fetch(`/api/packages/${pkgID}`);
-                const data = await res.json();
-                if (!res.ok) {
-                  return console.log("there was a problem getting package");
-                }
-                return setPackage(data);
-              } catch (error) {
-                console.log(error.message);
-              }
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const res = await fetch("/api/packages");
+        const data = await res.json();
+        if (!res.ok) {
+          console.log("Error fetching packages");
+          return;
         }
+        setPackages(data);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
 
-        getPackage();
+    fetchPackages();
+  }, []);
 
-    }, []);
-    useEffect(() => {
-        if (isSuccess) {
-          navigate("/success");
-          dispatch(reset());
-        }
-      }, [isSuccess]);
-    
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/success");
+      dispatch(reset());
+    }
+  }, [isSuccess, navigate, dispatch]);
 
-    const handleChange = (e) => {
-        setFormData((prevState) => ({
-          ...prevState,
-          [e.target.name]: e.target.value,
-        }));
-      };
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }));
+  };
 
-      const handleSubmit = (e) => {
-        e.preventDefault();
-    
-        const dataToSubmit = {
-          pkgID,
-          name,
-          email,
-          checkInDate,
-          checkOutDate,
-        };
-    
-        dispatch(createBooking(dataToSubmit));
-      };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const dataToSubmit = {
+      packageId: selectedPackage,
+      name,
+      email,
+      functionDate,
+      venue,
+      contactNumber
+    };
+
+    dispatch(createBooking(dataToSubmit));
+  };
 
   return (
     <div>
       <h1 className="heading center">Book Now</h1>
-     <div className="form-wrapper">
-     <form onSubmit={handleSubmit}>
+      <div className="form-wrapper">
+        <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label htmlFor="name">Name</label>
             <input
@@ -85,7 +92,7 @@ const Booking = () => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="name">Email</label>
+            <label htmlFor="email">Email</label>
             <input
               type="text"
               name="email"
@@ -96,31 +103,58 @@ const Booking = () => {
           </div>
 
           <div className="input-group">
-            <label htmlFor="name">Check In Date</label>
+            <label htmlFor="functionDate">Function Date</label>
             <input
               type="date"
-              name="checkInDate"
-              value={checkInDate}
+              name="functionDate"
+              value={functionDate}
               onChange={handleChange}
             />
           </div>
 
           <div className="input-group">
-            <label htmlFor="name">Check Out Date</label>
+            <label htmlFor="venue">Venue</label>
             <input
-              type="date"
-              name="checkOutDate"
-              value={checkOutDate}
+              type="text"
+              name="venue"
+              value={venue}
+              placeholder="Enter your chosen location"
               onChange={handleChange}
             />
           </div>
+
+          <div className="input-group">
+            <label htmlFor="contactNumber">Contact Number</label>
+            <input
+              type="text"
+              name="contactNumber"
+              value={contactNumber}
+              placeholder="Enter your contact number"
+              onChange={handleChange}
+            />
+          </div>
+          
+          <div className="input-group">
+            <label htmlFor="selectedPackage">Select Package</label>
+            <select
+              name="selectedPackage"
+              value={selectedPackage}
+              onChange={handleChange}
+            >
+              <option value="">-- Choose a Package --</option>
+              {packages.map((pkg) => (
+                <option key={pkg._id} value={pkg._id}>
+                  {pkg.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <button type="submit">Submit</button>
         </form>
-
-
-     </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Booking
+export default Booking;

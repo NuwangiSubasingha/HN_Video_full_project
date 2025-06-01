@@ -11,6 +11,7 @@ import Package from "./Pages/Package/Package";
 import Packages from "./Pages/Packages/Packages";
 import EditPackage from "./Pages/EditPackage/EditPackage";
 import Booking from "./Pages/Booking/Booking";
+import BookingList from "./component/BookingList/BookingList";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/edit/packages/:id" element={<EditPackage />} />
           <Route path="/packages/all/:id" element={<Package />} />
           <Route path="bookings/:id" element={<Booking />} />
+          <Route path="bookinglist" element={<BookingList/>} />
         </Routes>
       </Router>
     </div>

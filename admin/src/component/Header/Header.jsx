@@ -162,14 +162,16 @@ const Header = () => {
         </NavLink>
 
         <nav className="flex space-x-6">
-          <NavLink
+          
+        {/* <NavLink
             to="/"
             className={({ isActive }) =>
               isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
             }
           >
             Home
-          </NavLink>
+          </NavLink> */}
+
           <NavLink
             to="/packages"
             end
@@ -182,6 +184,14 @@ const Header = () => {
 
           {user ? (
             <>
+            <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+            }
+          >
+            Dashboard
+          </NavLink>
               <NavLink
                 to="/packages/create"
                 className={({ isActive }) =>

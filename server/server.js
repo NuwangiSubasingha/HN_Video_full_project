@@ -1,6 +1,7 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
 const { errorHandler } = require("./middleware/errorHandler");
+const path = require("path");
 const app = express();
 const connectDB = require("./config/db");
 const packageRoutes = require("./routes/packageRoutes");
@@ -23,6 +24,17 @@ app.use("/api/packages",packageRoutes);
 app.use("/api/bookings",bookingRoutes);
 app.use("/api/users", userRoutes);
 
+// setup production
+if (process.env.NODE_ENV === "production") {
+    const publicpath = path.join(__dirname, ".", "build");
+    const filePath = path.resolve(__dirname, ".", "build", "index.html");
+    app.use(express.static(publicpath));
+  
+    app.get("*", (req, res) => {
+      return res.sendFile(filePath);
+    });
+  }
+  
 
 app.use(errorHandler);
 
