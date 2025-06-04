@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import loginBg from "../../assets/img1.jpg";
 
 const Login = () => {
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, isSuccess } = useSelector((state) => state.auth);
 
@@ -17,8 +17,8 @@ const Login = () => {
   const { email, password } = formData;
 
   useEffect(() => {
-    if (isSuccess && user?.role === "admin") {
-      navigate("/home");
+    if (isSuccess) {
+      navigate("/");
       dispatch(reset());
     }
   }, [isSuccess, user, dispatch, navigate]);
@@ -34,7 +34,7 @@ const Login = () => {
     e.preventDefault();
     dispatch(loginUser({ email, password }));
   };
-  
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center relative"

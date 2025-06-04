@@ -94,11 +94,29 @@ const getBooking = async(req, res, next) => {
     }
 };
 
+// get all booked dates for a specific package
+const getBookedDates = async (req, res, next) => {
+  try {
+    const { packageId } = req.params;
+    const bookings = await Booking.find({ packageId });
+
+    const bookedDates = bookings.map(b =>
+      new Date(b.functionDate).toISOString().split("T")[0]
+    );
+
+    return res.status(200).json(bookedDates);
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 module.exports = {
     getBookings,
     getBooking ,
     createBooking,
     updateBooking,
     deleteBooking,
+    getBookedDates,
     
 };

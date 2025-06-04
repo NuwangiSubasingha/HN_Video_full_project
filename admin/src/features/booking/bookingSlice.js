@@ -63,9 +63,31 @@ export const createBooking = createAsyncThunk(
           return thunkApi.rejectWithValue(data);
         }
   
-        return data;
+         return data;
       } catch (error) {
         console.log(error.message);
+        return thunkApi.rejectWithValue(error.message);
+      }
+    }
+  );
+
+  export const confirmBooking = createAsyncThunk(
+    "booking/confirm",
+    async (bookingId, thunkApi) => {
+      try {
+        const res = await fetch(`/api/bookings/${bookingId}`, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "PUT",
+          body: JSON.stringify({ confirmed: true }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          return thunkApi.rejectWithValue(data);
+        }
+        return data;
+      } catch (error) {
         return thunkApi.rejectWithValue(error.message);
       }
     }
@@ -125,6 +147,19 @@ export const bookingSlice = createSlice({
             state.isError = true;
             state.message = action.payload;
           })
+          .addCase(confirmBooking.pending, (state, action) => {
+            state.isLoading = true;
+          })
+          .addCase(confirmBooking.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.isSuccess = true;
+            state.bookings = action.payload;
+          })
+          .addCase(confirmBooking.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
+            state.message = action.payload;
+          });
         },
     });
     

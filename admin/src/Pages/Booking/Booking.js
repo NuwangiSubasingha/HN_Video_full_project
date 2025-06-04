@@ -133,7 +133,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./booking.styles.scss";
-import { deleteBooking, reset } from "../../features/booking/bookingSlice";
+import { deleteBooking,  confirmBooking, reset } from "../../features/booking/bookingSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const BookingDetails = () => {
@@ -174,6 +174,10 @@ const BookingDetails = () => {
     dispatch(deleteBooking(id));
   };
 
+  const handleConfirm = () => {
+    dispatch(confirmBooking(id));
+  };
+
   return (
     <div id="booking">
       <div className="flex flex-col justify-center items-center h-screen text-black text-center">
@@ -206,7 +210,7 @@ const BookingDetails = () => {
                 {booking.contactNumber || "N/A"}
               </p>
               <div className="cta-wrapper">
-              <button>confirm</button>
+              <button onClick={handleConfirm}>confirm</button>
             <button className="danger" onClick={handleDelete}>
               Delete
             </button>

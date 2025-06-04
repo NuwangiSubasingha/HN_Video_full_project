@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/login");
+      navigate("/");
     }
     dispatch(getBookings());
   }, [user]);

@@ -81,10 +81,10 @@ const Package = () => {
                  </>
                ) : (
                  <button
-                   onClick={() => alert('Booking feature is coming soon!')}
+                   onClick={() => navigate('/')}
                    className="bg-[#2B7A78] border-2 border-[#3AAFA9] text-[#FEFFFF] py-2 px-6 rounded-lg shadow-md hover:bg-[#3AAFA9] text-base font-medium"
                  >
-                   Book Package
+                   Login
                  </button>
                )}
              </div>

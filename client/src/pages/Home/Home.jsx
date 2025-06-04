@@ -81,7 +81,7 @@ const Home = () => {
         </motion.p>
 
         {/* Explore Now Button with Animation */}
-        {/* <div className="flex justify-center items-center gap-6 mt-8 flex-wrap"> */}
+       <div className="flex justify-center items-center gap-6 mt-8 flex-wrap">
   <Link to="/packages">
     <motion.button
       initial={{ opacity: 0 }}
@@ -93,9 +93,9 @@ const Home = () => {
       <span className="absolute left-0 bottom-0 w-full h-1 bg-[#FEFFFF] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
     </motion.button>
   </Link>
-
+</div>
  
-{/* </div> */}
+
 
       </div>
     </div>

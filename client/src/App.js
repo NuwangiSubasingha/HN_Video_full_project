@@ -3,12 +3,16 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles/app.styles.scss";
 
+
 import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import Register from "./pages/Register/Register";
 import Packages from "./pages/Packages/Packages";
 import Package from "./pages/Package/Package";
 import Booking from "./pages/Booking/Booking";
 import Header from "./component/Header/Header";
 import Success from "./pages/Success/Success";
+import ContactUs from "./pages/ContactUs/ContactUs"
 
 const App = () => {
   return (
@@ -17,10 +21,13 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/packages/all/:id" element={<Package />} />
         <Route path="/bookings/:id" element={<Booking />} />
         <Route path="/success" element={<Success/>} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
     </Router>
     </div>

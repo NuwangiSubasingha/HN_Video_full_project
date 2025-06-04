@@ -5,6 +5,37 @@ import { useSelector, useDispatch } from "react-redux";
 import registerBg from "../../assets/img1.jpg"; 
 
 const Register = () => {
+  // const dispatch = useDispatch();
+  // const navigate = useNavigate();
+  // const { user, isSuccess } = useSelector((state) => state.auth);
+
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  // });
+
+  // const { name, email, password } = formData;
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     navigate("/");
+  //     dispatch(reset());
+  //   }
+  // }, [isSuccess, user, dispatch, navigate]);
+
+  // const handleChange = (e) => {
+  //   setFormData((prev) => ({
+  //     ...prev,
+  //     [e.target.name]: e.target.value,
+  //   }));
+  // };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   dispatch(registerUser({ name, email, password }));
+  // };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, isSuccess } = useSelector((state) => state.auth);
@@ -13,12 +44,13 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
+    role: "admin", // <<< Make sure role is sent
   });
 
-  const { name, email, password } = formData;
+  const { name, email, password, role } = formData;
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && user?.role === "admin") {
       navigate("/login");
       dispatch(reset());
     }
@@ -33,8 +65,9 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(registerUser({ name, email, password }));
+    dispatch(registerUser({ name, email, password, role }));
   };
+
 
   return (
     <div

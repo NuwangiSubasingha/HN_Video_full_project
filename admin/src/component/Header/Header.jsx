@@ -136,42 +136,32 @@
 //   );
 // };
 
-// export default Header;
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser, reset } from "../../features/counter/auth/authSlice";
-// import logo from "../../assets/logo.png";
+
 const Header = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Step 2
 
   const handleLogout = async () => {
     dispatch(logoutUser());
     dispatch(reset());
+    navigate("/"); // Step 3
   };
 
   return (
     <header className="bg-[#17252A] shadow-lg py-4">
       <div className="container mx-auto flex justify-between items-center px-6">
         <NavLink
-          to="/"
+          to="/home"
           className="flex items-center space-x-2 text-[#3AAFA9] text-3xl font-semibold "
         >
-          {/* <img src={logo} alt="Site Logo" className="h-[50px] w-[50px] object-contain" /> */}
           <h1>HN Video</h1>
         </NavLink>
 
         <nav className="flex space-x-6">
-          
-        {/* <NavLink
-            to="/"
-            className={({ isActive }) =>
-              isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
-            }
-          >
-            Home
-          </NavLink> */}
-
           <NavLink
             to="/packages"
             end
@@ -184,14 +174,14 @@ const Header = () => {
 
           {user ? (
             <>
-            <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
-            }
-          >
-            Dashboard
-          </NavLink>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+                }
+              >
+                Dashboard
+              </NavLink>
               <NavLink
                 to="/packages/create"
                 className={({ isActive }) =>
@@ -210,7 +200,7 @@ const Header = () => {
           ) : (
             <>
               <NavLink
-                to="/login"
+                to="/"
                 className={({ isActive }) =>
                   isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
                 }

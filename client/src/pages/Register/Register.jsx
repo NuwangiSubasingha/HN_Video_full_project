@@ -1,24 +1,25 @@
 import { useState, useEffect } from "react";
-import { loginUser, reset } from "../../features/counter/auth/authSlice";
+import { registerUser, reset } from "../../features/counter/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import loginBg from "../../assets/img1.jpg";
+import registerBg from "../../assets/img1.jpg"; 
 
-const Login = () => {
- const dispatch = useDispatch();
+const Register = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, isSuccess } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
 
-  const { email, password } = formData;
+  const { name, email, password } = formData;
 
   useEffect(() => {
-    if (isSuccess && user?.role === "admin") {
-      navigate("/home");
+    if (isSuccess) {
+      navigate("/login");
       dispatch(reset());
     }
   }, [isSuccess, user, dispatch, navigate]);
@@ -32,13 +33,13 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }));
+    dispatch(registerUser({ name, email, password }));
   };
-  
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
-      style={{ backgroundImage: `url(${loginBg})` }}
+      style={{ backgroundImage: `url(${registerBg})` }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-[#17252A]/70 backdrop-blur-sm"></div>
@@ -46,10 +47,29 @@ const Login = () => {
       {/* Form container */}
       <div className="relative z-10 w-full max-w-md bg-[#FEFFFF]/90 border border-[#DEF2F1] shadow-2xl rounded-2xl p-10 backdrop-blur-xl">
         <h1 className="text-4xl font-bold text-center text-[#2B7A78] mb-8 drop-shadow-md">
-          Welcome Back
+          Create an Account
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Name */}
+          <div className="group">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-[#17252A] group-focus-within:text-[#3AAFA9] transition"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              placeholder="John Doe"
+              onChange={handleChange}
+              className="mt-2 w-full px-4 py-3 rounded-lg border border-[#3AAFA9] text-[#17252A] bg-[#DEF2F1] focus:outline-none focus:ring-2 focus:ring-[#2B7A78] transition-all duration-300"
+              required
+            />
+          </div>
+
           {/* Email */}
           <div className="group">
             <label
@@ -88,20 +108,20 @@ const Login = () => {
             />
           </div>
 
-          {/* Button */}
+          {/* Submit Button */}
           <button
             type="submit"
             className="w-full py-3 mt-4 bg-[#2B7A78] text-white font-semibold rounded-lg hover:bg-[#3AAFA9] shadow-md hover:shadow-lg transition-all duration-300"
           >
-            Sign In
+            Register
           </button>
         </form>
 
         {/* Optional footer text */}
         <p className="mt-6 text-center text-sm text-[#3AAFA9]">
-          Don't have an account?{" "}
-          <a href="/register" className="underline hover:text-[#2B7A78]">
-            Register here
+          Already have an account?{" "}
+          <a href="/login" className="underline hover:text-[#2B7A78]">
+            Login here
           </a>
         </p>
       </div>
@@ -109,4 +129,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
