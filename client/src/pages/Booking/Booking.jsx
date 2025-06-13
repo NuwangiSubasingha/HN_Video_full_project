@@ -515,6 +515,15 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { createBooking, reset } from "../../features/booking/bookingSlice";
 import { useDispatch, useSelector } from "react-redux";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
+import {
+  FaUser,
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaPhone,
+  FaCalendarAlt,
+} from "react-icons/fa";
 
 const Booking = () => {
   const dispatch = useDispatch();
@@ -527,16 +536,31 @@ const Booking = () => {
 
   const [packageInfo, setPackageInfo] = useState(null);
   const [bookedDates, setBookedDates] = useState([]);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [showCalendar, setShowCalendar] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    functionDate: "",
     venue: "",
     contactNumber: "",
   });
 
-  const { name, email, functionDate, venue, contactNumber } = formData;
+  const { name, email, venue, contactNumber } = formData;
+
+  const [minSelectableDate] = useState(() => {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    return tomorrow;
+  });
+
+  const formatDateToLocal = (date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
 
   useEffect(() => {
     if (user) {
@@ -571,7 +595,7 @@ const Booking = () => {
           console.error("Failed to load booked dates");
           return;
         }
-        setBookedDates(data); // Array of 'YYYY-MM-DD' strings
+        setBookedDates(data);
       } catch (error) {
         console.error("Error fetching booked dates", error);
       }
@@ -597,11 +621,26 @@ const Booking = () => {
     }));
   };
 
+  const handleDateSelect = (date) => {
+    const dateStr = formatDateToLocal(date);
+    if (bookedDates.includes(dateStr)) {
+      alert("Sorry, this date is already booked.");
+      return;
+    }
+    setSelectedDate(dateStr);
+    setShowCalendar(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (bookedDates.includes(functionDate)) {
-      alert("Sorry, this date is already booked. Please choose another date.");
+    if (!selectedDate) {
+      alert("Please select a function date.");
+      return;
+    }
+
+    if (bookedDates.includes(selectedDate)) {
+      alert("This date is already booked. Please choose another date.");
       return;
     }
 
@@ -610,7 +649,7 @@ const Booking = () => {
       packageName: packageInfo ? packageInfo.name : "",
       name,
       email,
-      functionDate,
+      functionDate: selectedDate,
       venue,
       contactNumber,
     };
@@ -618,103 +657,188 @@ const Booking = () => {
     dispatch(createBooking(dataToSubmit));
   };
 
+  const handleShowCalendar = () => {
+    setShowCalendar(true);
+  };
+
+  const InputWithIcon = ({
+    icon,
+    name,
+    value,
+    onChange,
+    placeholder,
+    type = "text",
+    readOnly = false,
+  }) => (
+    <div className="relative">
+      <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-green-600 text-lg">
+        {icon}
+      </span>
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        readOnly={readOnly}
+        required
+        className={`w-full pl-12 pr-4 py-3 border rounded-xl transition shadow 
+        ${
+          readOnly
+            ? "bg-gray-100 text-gray-600 border-gray-300 cursor-not-allowed"
+            : "bg-white border-green-300 focus:outline-none focus:ring-2 focus:ring-green-300"
+        }`}
+      />
+    </div>
+  );
+
   return (
-    <div>
-      <h1 className="heading center">Book Now</h1>
-      <div className="form-wrapper">
-        <form onSubmit={handleSubmit}>
-          <div className="text-black">
+    <div className="min-h-screen bg-gradient-to-br from-green-100 to-cyan-200 py-12 px-4">
+      <h1 className="text-4xl font-extrabold text-center text-green-800 mb-10 drop-shadow-lg">
+        Book Your Dream Package
+      </h1>
+
+      <div className="max-w-3xl mx-auto bg-white bg-opacity-90 backdrop-blur-md rounded-3xl p-8 shadow-xl border border-green-300">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="space-y-6 text-gray-900">
             {packageInfo && (
-              <div className="input-group">
-                <label>Selected Package</label>
-                <input type="text" value={packageInfo.name} readOnly disabled />
-              </div>
-            )}
-
-            <div className="input-group">
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={name}
-                placeholder="Enter full name"
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                value={email}
-                placeholder="Enter your email address"
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="input-group">
-              <label htmlFor="functionDate">Function Date</label>
-              <input
-                type="date"
-                name="functionDate"
-                value={functionDate}
-                onChange={handleChange}
-                required
-                min={new Date().toISOString().split("T")[0]}
-                onInput={(e) => {
-                  if (bookedDates.includes(e.target.value)) {
-                    e.target.setCustomValidity("This date is already booked.");
-                  } else {
-                    e.target.setCustomValidity("");
-                  }
-                }}
-              />
-            </div>
-
-            {/* Show booked dates here */}
-            {bookedDates.length > 0 && (
-              <div className="input-group" style={{ marginTop: "10px" }}>
-                <label className="text-red-600 font-semibold">
-                  Already Booked Dates:
+              <div>
+                <label className="block mb-2 text-lg font-semibold text-green-700">
+                  Selected Package
                 </label>
-                <ul className="list-disc pl-5 text-red-500">
-                  {bookedDates.map((date) => (
-                    <li key={date}>{date}</li>
-                  ))}
-                </ul>
+                <input
+                  type="text"
+                  value={packageInfo.name}
+                  readOnly
+                  disabled
+                  className="w-full px-5 py-3 rounded-xl border border-green-300 bg-green-100 text-green-800 font-semibold shadow-inner cursor-not-allowed"
+                />
               </div>
             )}
 
-            <div className="input-group">
-              <label htmlFor="venue">Venue</label>
-              <input
-                type="text"
-                name="venue"
-                value={venue}
-                placeholder="Enter your chosen location"
-                onChange={handleChange}
-                required
-              />
+            <InputWithIcon
+              icon={<FaUser />}
+              name="name"
+              value={name}
+              onChange={handleChange}
+              placeholder="Your Name"
+              readOnly
+            />
+
+            <InputWithIcon
+              icon={<FaEnvelope />}
+              name="email"
+              value={email}
+              onChange={handleChange}
+              placeholder="you@example.com"
+              type="email"
+              readOnly
+            />
+
+            <div>
+              <label className="block mb-3 font-semibold text-green-700">
+                Choose Function Date
+              </label>
+
+              {!showCalendar && (
+                <button
+                  type="button"
+                  onClick={handleShowCalendar}
+                  className="mb-4 flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition"
+                >
+                  <FaCalendarAlt />
+                  Select Date
+                </button>
+              )}
+
+              {showCalendar && (
+                <div className="rounded-lg border border-green-300 shadow-lg overflow-hidden bg-white p-4">
+                  <Calendar
+                    minDate={minSelectableDate}
+                    onClickDay={handleDateSelect}
+                    tileDisabled={({ date }) => {
+                      const dateStr = formatDateToLocal(date);
+                      return bookedDates.includes(dateStr);
+                    }}
+                    tileClassName={({ date }) => {
+                      const dateStr = formatDateToLocal(date);
+                      if (bookedDates.includes(dateStr)) {
+                        return "booked-date";
+                      }
+                      if (selectedDate === dateStr) {
+                        return "selected-date";
+                      }
+                      return null;
+                    }}
+                  />
+                </div>
+              )}
+
+              {selectedDate && (
+                <p className="mt-3 text-green-700 font-semibold">
+                  Selected Date:{" "}
+                  <span className="underline">{selectedDate}</span>
+                </p>
+              )}
             </div>
 
-            <div className="input-group">
-              <label htmlFor="contactNumber">Contact Number</label>
-              <input
-                type="text"
-                name="contactNumber"
-                value={contactNumber}
-                placeholder="Enter your contact number"
-                onChange={handleChange}
-                required
-              />
-            </div>
+            <InputWithIcon
+              icon={<FaMapMarkerAlt />}
+              name="venue"
+              value={venue}
+              onChange={handleChange}
+              placeholder="Event Venue"
+            />
+
+            <InputWithIcon
+              icon={<FaPhone />}
+              name="contactNumber"
+              value={contactNumber}
+              onChange={handleChange}
+              placeholder="Contact Number"
+            />
           </div>
-          <button type="submit">Submit</button>
+
+      <button
+  type="submit"
+  className="w-full py-4 bg-gradient-to-r from-green-500 via-green-600 to-green-700 text-white font-extrabold rounded-3xl shadow-lg hover:from-green-600 hover:via-green-700 hover:to-green-800 transition"
+>
+  Submit Booking
+</button>
+
+
         </form>
       </div>
+
+      {/* Calendar Styles for Booked/Selected Dates */}
+      <style>
+        {`
+          .booked-date {
+            background: #DC2626 !important;
+            color: white !important;
+            font-weight: bold;
+            border-radius: 9999px;
+          }
+
+          .selected-date {
+            background: #059669 !important;
+            color: white !important;
+            font-weight: bold;
+            border-radius: 9999px;
+            box-shadow: 0 0 10px rgba(5, 150, 105, 0.6);
+          }
+
+          .react-calendar {
+            border: none;
+            width: 100%;
+            font-family: inherit;
+          }
+
+          .react-calendar__tile--now {
+            background: #d1fae5 !important;
+          }
+        `}
+      </style>
     </div>
   );
 };

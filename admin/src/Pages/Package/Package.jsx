@@ -64,7 +64,7 @@ const Package = () => {
               <p className="text-[#2B7A78] text-center mb-4">{pkg.desc}</p>
               <h2 className="text-xl font-bold text-[#3AAFA9] text-center mb-6">Rs: {pkg.price.toFixed(2)}</h2>
              <div className="cta-wrapper text-center space-x-4">
-               {user?.isAdmin ? (
+               {user?.role === 'admin' ? (
                  <>
                    <Link
                      to={`/edit/packages/${pkg._id}`}

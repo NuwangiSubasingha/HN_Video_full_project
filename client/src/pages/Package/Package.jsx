@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { reset, deletePackage } from '../../features/package/packageSlice';
 import Carousel from "../../component/Carousel/Carousel";
 
+
 const Package = () => {
   const isSuccess = useSelector((state) => state.Package?.isSuccess);
   const user = useSelector((state) => state.auth?.user);  // <-- get logged-in user from auth slice
@@ -11,6 +12,7 @@ const Package = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [pkg, setPackage] = useState(null);
+    
 
   useEffect(() => {
     if (isSuccess) {
@@ -58,6 +60,7 @@ const Package = () => {
     }
   };
 
+
   return (
     <div id="package" className="bg-[#DEF2F1] min-h-screen">
       <div className="container mx-auto py-12 px-6">
@@ -79,6 +82,7 @@ const Package = () => {
                   Book Now
                 </button>
               </div>
+               
             </div>
           </div>
         ) : (

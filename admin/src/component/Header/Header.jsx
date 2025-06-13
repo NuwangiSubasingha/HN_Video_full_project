@@ -162,15 +162,6 @@ const Header = () => {
         </NavLink>
 
         <nav className="flex space-x-6">
-          <NavLink
-            to="/packages"
-            end
-            className={({ isActive }) =>
-              isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
-            }
-          >
-            Packages
-          </NavLink>
 
           {user ? (
             <>
@@ -182,13 +173,32 @@ const Header = () => {
               >
                 Dashboard
               </NavLink>
+          <NavLink
+            to="/packages"
+            end
+            className={({ isActive }) =>
+              isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+            }
+          >
+            Packages
+          </NavLink>
+
+          
               <NavLink
                 to="/packages/create"
                 className={({ isActive }) =>
                   isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
                 }
               >
-                Create
+                Create Package
+              </NavLink>
+              <NavLink
+                to="/add/video"
+                className={({ isActive }) =>
+                  isActive ? "text-[#3AAFA9] font-semibold" : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+                }
+              >
+                Add Video
               </NavLink>
               <button
                 onClick={handleLogout}

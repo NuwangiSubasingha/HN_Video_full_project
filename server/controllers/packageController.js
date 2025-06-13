@@ -82,10 +82,33 @@ const deletePackage = async(req, res, next) => {
     }
 };
 
+const getPackagePrice = async (req, res) => {
+  try {
+    const { packageId } = req.query;
+
+    if (!packageId) {
+      return res.status(400).json({ message: 'Package ID is required' });
+    }
+
+    const pkg = await Package.findById(packageId);
+
+    if (!pkg) {
+      return res.status(404).json({ message: 'Package not found' });
+    }
+
+    res.json({ price: pkg.price });
+  } catch (error) {
+    console.error('Error fetching package price:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
     getPackages,
     createPackage,
     getPackage,
     updatePackage,
     deletePackage,
+    getPackagePrice
+    
 };

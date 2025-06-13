@@ -71,27 +71,50 @@ export const createBooking = createAsyncThunk(
     }
   );
 
+  // export const confirmBooking = createAsyncThunk(
+  //   "booking/confirm",
+  //   async (bookingId, thunkApi) => {
+  //     try {
+  //       const res = await fetch(`/api/bookings/${bookingId}`, {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         method: "PUT",
+  //         body: JSON.stringify({ confirmed: true }),
+  //       });
+  //       const data = await res.json();
+  //       if (!res.ok) {
+  //         return thunkApi.rejectWithValue(data);
+  //       }
+  //       return data;
+  //     } catch (error) {
+  //       return thunkApi.rejectWithValue(error.message);
+  //     }
+  //   }
+  // );
+
   export const confirmBooking = createAsyncThunk(
-    "booking/confirm",
-    async (bookingId, thunkApi) => {
-      try {
-        const res = await fetch(`/api/bookings/${bookingId}`, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          method: "PUT",
-          body: JSON.stringify({ confirmed: true }),
-        });
-        const data = await res.json();
-        if (!res.ok) {
-          return thunkApi.rejectWithValue(data);
-        }
-        return data;
-      } catch (error) {
-        return thunkApi.rejectWithValue(error.message);
+  "booking/confirm",
+  async (bookingId, thunkApi) => {
+    try {
+      const res = await fetch(`/api/bookings/confirm/${bookingId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        return thunkApi.rejectWithValue(data.message || "Failed to confirm booking");
       }
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
-  );
+  }
+);
+
 
 export const bookingSlice = createSlice({
     name: "booking",
@@ -150,11 +173,19 @@ export const bookingSlice = createSlice({
           .addCase(confirmBooking.pending, (state, action) => {
             state.isLoading = true;
           })
+          // .addCase(confirmBooking.fulfilled, (state, action) => {
+          //   state.isLoading = false;
+          //   state.isSuccess = true;
+          //   state.bookings = action.payload;
+          // })
           .addCase(confirmBooking.fulfilled, (state, action) => {
-            state.isLoading = false;
-            state.isSuccess = true;
-            state.bookings = action.payload;
-          })
+  state.isLoading = false;
+  state.isSuccess = true;
+  state.bookings = state.bookings.map((booking) =>
+    booking._id === action.payload._id ? action.payload : booking
+  );
+})
+
           .addCase(confirmBooking.rejected, (state, action) => {
             state.isLoading = false;
             state.isError = true;

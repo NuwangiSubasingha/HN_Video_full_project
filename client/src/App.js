@@ -13,6 +13,11 @@ import Booking from "./pages/Booking/Booking";
 import Header from "./component/Header/Header";
 import Success from "./pages/Success/Success";
 import ContactUs from "./pages/ContactUs/ContactUs"
+import PaymentPage from "./pages/Payment/PaymentPage";
+import AboutUs from "./pages/AboutUs/AboutUs";
+import SampleVideosPage from "./pages/SampleVideo/SampleVideosPage";
+import FeedbackList from "./pages/Feedback/FeedbackList";
+import FeedbackForm from "./pages/Feedback/FeedbackForm";
 
 const App = () => {
   return (
@@ -28,6 +33,11 @@ const App = () => {
         <Route path="/bookings/:id" element={<Booking />} />
         <Route path="/success" element={<Success/>} />
         <Route path="/contact" element={<ContactUs />} />
+        <Route path="/about" element={<AboutUs />} /> 
+        <Route path="/payment/:bookingId" element={<PaymentPage/>} />
+        <Route path="/sample/video" element={<SampleVideosPage/>} />
+        <Route path="/feedback" element={<FeedbackList/>} />
+        <Route path="/FeedbackForm" element={<FeedbackForm/>} />
       </Routes>
     </Router>
     </div>

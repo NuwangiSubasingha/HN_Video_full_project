@@ -63,6 +63,15 @@ const bookingSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    paymentStatus: {
+  type: String,
+  default: 'unpaid',
+},
+paymentId: {
+  type: String,
+  default: null,
+},
+
   },
   {
     timestamps: true,

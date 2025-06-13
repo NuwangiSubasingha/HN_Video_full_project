@@ -94,6 +94,7 @@
 
 // export default Packages;
 
+import { motion } from 'framer-motion';
 import { getPackages, reset } from '../../features/package/packageSlice';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -105,13 +106,13 @@ const Packages = () => {
 
   useEffect(() => {
     dispatch(getPackages());
-  }, [dispatch]); // Added dispatch to the dependency array
+  }, [dispatch]);
 
   useEffect(() => {
     if (isSuccess) {
       dispatch(reset());
     }
-  }, [isSuccess, dispatch]); // Added dispatch to the dependency array
+  }, [isSuccess, dispatch]);
 
   if (isLoading) {
     return (
@@ -124,11 +125,19 @@ const Packages = () => {
   return (
     <div>
       <div className="container">
-        <h1 className="heading center">Packages</h1>
+        <motion.h1
+          className="text-5xl font-bold text-center my-6"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          Packages
+        </motion.h1>
+
         {packages.length > 0 ? (
           <PackageList data={packages} />
         ) : (
-          <p className="center">No packages available.</p>
+          <p className="text-center text-gray-600">No packages available.</p>
         )}
       </div>
     </div>

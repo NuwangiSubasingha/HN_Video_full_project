@@ -287,6 +287,40 @@ const Header = () => {
             Packages
           </NavLink>
           <NavLink
+            to="/sample/video"
+            end
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#3AAFA9] font-semibold"
+                : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+            }
+          >
+            Preview Our Work
+          </NavLink>
+          <NavLink
+            to="/about"
+            end
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#3AAFA9] font-semibold"
+                : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+            }
+          >
+            About Us
+          </NavLink>
+          <NavLink
+            to="/feedback"
+            end
+            className={({ isActive }) =>
+              isActive
+                ? "text-[#3AAFA9] font-semibold"
+                : "text-[#DEF2F1] hover:text-[#3AAFA9]"
+            }
+          >
+            Testimonials
+          </NavLink>
+          
+          <NavLink
             to="/contact"
             end
             className={({ isActive }) =>

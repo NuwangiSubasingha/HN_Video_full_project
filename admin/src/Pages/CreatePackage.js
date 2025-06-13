@@ -77,8 +77,9 @@ const CreatePackage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#17252A] via-[#2B7A78] to-[#3AAFA9] flex items-center justify-center px-4">
-      <div className="w-full max-w-2xl bg-white/10 backdrop-blur-lg rounded-3xl shadow-2xl p-8 space-y-6 border border-white/20">
+     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-green-200 to-cyan-200 px-4">
+      <div className="w-full max-w-2xl bg-gradient-to-br from-[#2B7A78] via-[#2B7A78] to-[#3AAFA9] backdrop-blur-lg rounded-3xl shadow-2xl p-8 space-y-6 border border-white/20">
+
         <h1 className="text-3xl font-bold text-[#FEFFFF] text-center mb-6">🎬 Create New Package</h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -145,7 +146,7 @@ const CreatePackage = () => {
             type="submit"
             className="w-full py-3 bg-gradient-to-r from-[#2B7A78] to-[#3AAFA9] hover:from-[#3AAFA9] hover:to-[#2B7A78] text-[#FEFFFF] font-semibold rounded-xl shadow-lg transform hover:scale-105 transition duration-300"
           >
-            ✔️ Create Package
+             Create Package
           </button>
         </form>
       </div>

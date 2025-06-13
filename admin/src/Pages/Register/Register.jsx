@@ -51,7 +51,7 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess && user?.role === "admin") {
-      navigate("/login");
+      navigate("/");
       dispatch(reset());
     }
   }, [isSuccess, user, dispatch, navigate]);

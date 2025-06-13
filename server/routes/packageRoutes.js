@@ -1,6 +1,6 @@
 const { Router } = require("express");
 
-const { createPackage, getPackages,getPackage, updatePackage, deletePackage } = require ("../controllers/packageController");
+const { createPackage, getPackages,getPackage, updatePackage, deletePackage, getPackagePrice } = require ("../controllers/packageController");
 
 const { auth } = require("../middleware/authMiddleware");
 
@@ -20,5 +20,8 @@ router.put("/:id", auth,  updatePackage);
 
 // delete package
 router.delete("/:id", auth, deletePackage);
+
+
+router.get('/price', getPackagePrice);
 
 module.exports = router;

@@ -12,6 +12,8 @@ import Packages from "./Pages/Packages/Packages";
 import EditPackage from "./Pages/EditPackage/EditPackage";
 import Booking from "./Pages/Booking/Booking";
 import BookingList from "./component/BookingList/BookingList";
+import AddVideoPage from "./Pages/AddVideo/AddVideoPage";
+import AllFeedbackList from "./Pages/Feedback/AdminFeedbackList";
 
 const App = () => {
   return (
@@ -29,6 +31,8 @@ const App = () => {
           <Route path="/packages/all/:id" element={<Package />} />
           <Route path="bookings/:id" element={<Booking />} />
           <Route path="bookinglist" element={<BookingList/>} />
+          <Route path="/add/video" element={<AddVideoPage/>} />
+          <Route path="/feedback" element={<AllFeedbackList/>} />
         </Routes>
       </Router>
     </div>

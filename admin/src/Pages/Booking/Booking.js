@@ -133,7 +133,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./booking.styles.scss";
-import { deleteBooking,  confirmBooking, reset } from "../../features/booking/bookingSlice";
+import { deleteBooking, confirmBooking, reset } from "../../features/booking/bookingSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const BookingDetails = () => {
@@ -146,10 +146,11 @@ const BookingDetails = () => {
   );
 
   const [booking, setBooking] = useState(null);
-  const [isDeleting, setIsDeleting] = useState(false); // NEW
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     if (isSuccess && isDeleting) {
+      console.log("✅ Booking deleted successfully.");
       dispatch(reset());
       navigate("/dashboard");
     }
@@ -161,20 +162,34 @@ const BookingDetails = () => {
       try {
         const res = await fetch(`/api/bookings/${id}`);
         const data = await res.json();
+        console.log("📦 Booking data fetched:", data);
         setBooking(data);
       } catch (error) {
-        console.log(error.message);
+        console.error("❌ Error fetching booking:", error.message);
       }
     };
     getBooking();
   }, [id, dispatch]);
 
+  // Handle success or error for confirmation
+  useEffect(() => {
+    if (isSuccess && !isDeleting) {
+      console.log("✅ Booking confirmed and mail sent successfully.");
+    }
+
+    if (isError) {
+      console.error("❌ Error in booking action:", message);
+    }
+  }, [isSuccess, isError, message, isDeleting]);
+
   const handleDelete = () => {
-    setIsDeleting(true); // mark that we're deleting
+    console.log("🗑️ Delete button clicked. Booking ID:", id);
+    setIsDeleting(true);
     dispatch(deleteBooking(id));
   };
 
   const handleConfirm = () => {
+    console.log("🟡 Confirm button clicked. Booking ID:", id);
     dispatch(confirmBooking(id));
   };
 
@@ -210,10 +225,10 @@ const BookingDetails = () => {
                 {booking.contactNumber || "N/A"}
               </p>
               <div className="cta-wrapper">
-              <button onClick={handleConfirm}>confirm</button>
-            <button className="danger" onClick={handleDelete}>
-              Delete
-            </button>
+                <button onClick={handleConfirm}>Confirm</button>
+                <button className="danger" onClick={handleDelete}>
+                  Delete
+                </button>
               </div>
             </div>
           </div>
@@ -226,5 +241,3 @@ const BookingDetails = () => {
 };
 
 export default BookingDetails;
-
-

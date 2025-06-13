@@ -1,0 +1,11 @@
+/* custom-calendar.css */
+.booked-date {
+  background-color: #f87171 !important; /* Tailwind red-400 */
+  color: white !important;
+  text-decoration: line-through;
+}
+
+.selected-date {
+  background-color: #34d399 !important; /* Tailwind green-400 */
+  color: white !important;
+}

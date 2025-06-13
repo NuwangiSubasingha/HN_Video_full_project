@@ -1,0 +1,50 @@
+.success-container {
+  font-family: 'Poppins', sans-serif;
+  padding: 3rem;
+  text-align: center;
+  background: linear-gradient(145deg, #e0fff4, #ffffff);
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  margin: 4rem auto;
+  max-width: 700px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.success-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+.heading.success {
+  font-size: 2.5rem;
+  color: #2f855a;
+  font-weight: 700;
+  margin-bottom: 2rem; /* Add this line */
+}
+
+
+.note {
+  margin-top: 1.2rem;
+  font-size: 1.1rem;
+  color: #2d3748;
+  line-height: 1.7;
+}
+
+.btn-container {
+  margin-top: 2rem;
+}
+
+.home-btn {
+  background-color: #38a169;
+  color: white;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+.home-btn:hover {
+  background-color: #2f855a;
+}
