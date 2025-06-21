@@ -245,7 +245,7 @@ const BookingList = () => {
         console.log("Fetched bookings:", data);
 
         if (Array.isArray(data)) {
-          setBookings(data);
+          setBookings(data.reverse()); // Show newest first
         } else {
           console.error("Expected array, got:", data);
         }
@@ -285,8 +285,7 @@ const BookingList = () => {
                   <td className="p-2 border">{booking.email}</td>
                   <td className="p-2 border">{booking.packageId?.name || "N/A"}</td>
                   <td className="p-2 border">
-                  {new Date(booking.functionDate).toLocaleDateString()}
-
+                    {new Date(booking.functionDate).toLocaleDateString()}
                   </td>
                   <td className="p-2 border">{booking.venue || "N/A"}</td>
                   <td className="p-2 border">{booking.contactNumber || "N/A"}</td>

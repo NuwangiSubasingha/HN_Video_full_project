@@ -435,16 +435,27 @@ const AllFeedbackList = () => {
         </div>
 
      <div className="mt-20">
-  <Slider {...settings}>
+  {/* <Slider {...settings}>
     {feedbacks.map((fb) => (
       <div key={fb._id} className="px-6">
         <div className="p-10 bg-white rounded-2xl shadow-2xl w-[600px] h-[300px] mx-auto text-center flex flex-col justify-center">
-          <h3 className="text-xl font-semibold text-gray-900 mb-3">{fb.name}</h3>
+          <h3 className="text-xl font-semibold text-gray-900 mb-5">{fb.name}</h3><br />
           <p className="text-md italic text-gray-700">"{fb.comment}"</p>
         </div>
       </div>
     ))}
-  </Slider>
+  </Slider> */}
+  <Slider {...settings}>
+  {feedbacks.map((fb) => (
+    <div key={fb._id} className="px-6">
+      <div className="p-10 bg-white rounded-2xl shadow-2xl w-[600px] h-[300px] mx-auto text-center flex flex-col justify-center">
+        <h3 className="text-2xl font-bold text-[#205b96] mb-5">{fb.name}</h3>
+        <p className="text-md italic text-gray-700">"{fb.comment}"</p>
+      </div>
+    </div>
+  ))}
+</Slider>
+
 </div>
 
 
